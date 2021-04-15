@@ -1,0 +1,68 @@
+module engineer {
+    yang-version 1.1;
+    namespace "urn:bell.ca:devexperts:engineer";
+    prefix "engineer";
+    import engineer_types {
+      prefix "types";
+    }
+    revision 2021-04-14;
+    container engineer {
+        description "It's me";
+        leaf name {
+            mandatory true;
+            type string;
+        }
+        leaf age {
+            type types:age_type;
+        }
+        leaf commute {
+            type types:transportation_type;
+        }
+        container project {
+            list work_item {
+                key "work_item_name";
+                ordered-by user;
+                leaf work_item_name {
+                    type string;
+                }
+                leaf deadline {
+                    type string;
+                }
+            }
+        }    
+    }
+    list food {
+        key "item_name";
+        ordered-by system;
+        leaf item_name {
+            type string;
+        }
+        choice food_type {
+            case office {
+                container coffee {
+                    leaf size {
+                        type enumeration {
+                            enum tall;
+                            enum grande;
+                            enum venti;
+                        }
+                    }
+                    leaf milk {
+                        type boolean;
+                    }
+                }
+                leaf donut {
+                    type empty;
+                }
+            }
+            case home {
+                leaf salad {
+                    type empty;
+                }
+                leaf smoothie {
+                    type empty;
+                }
+            }
+        }
+    }
+}
